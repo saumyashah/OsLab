@@ -1,4 +1,0 @@
-hello world
-hello amazing world
-The world is so amazing
-git commit on 17 th january.
