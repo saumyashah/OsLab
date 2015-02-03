@@ -1,0 +1,38 @@
+OS Home Assignment 1
+
+
+1)
+
+Child sees i = 0
+Parent sees i = 0
+Child sees i = 1
+Parent sees i = 1
+Child sees i = 2
+Parent sees i = 2
+
+
+2)
+
+Parent says a: 1
+id: 2 a: 2 b: 1
+id: 1 a: 3 b: 1
+
+Note: The statements pthread_join will not be executed.
+
+
+
+
+Answer 3)
+
+This threading approach ( m:n threading ) is better than user-level threads because of cheap context switching. It is so because it does not involve OS kernel operations for user level thread switch. It is expected that there are no kernel thread context switches at all except OS kernel process scheduling. In user-level threading all the context switches happen in kernel.
+
+Mapping is possible for these relative values of m and n :
+
+m >> n
+m > n
+m (approx) = n
+
+
+Best choice: m >> n
+
+
