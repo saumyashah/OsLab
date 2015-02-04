@@ -1,0 +1,224 @@
+LINUX LAB- 3 ASSIGNMENT
+
+Write the UNIX commands for the following:
+
+1. Use the cat command, and display all the .txt files in the current directory on the screen at one go.
+             cat *.txt
+
+2. To start any web browser from the command prompt.
+sensible-browser
+
+3. To list lines that does not include ‘and’ in a text file.
+Grep -v and <filename>
+
+
+4. To compress all .dat files in the current directory and vice versa.
+Gzip *.dat
+
+
+5. To list all the files in the present working directory including the hidden files.
+             ls -a
+ 
+6. To show all the files in the subdirectories of a directory.
+ls -R
+
+7. To make changes into environmental variables.
+export
+
+8. To sort the lines of a file into reverse order.
+sort -r
+
+9. To create a hard link to myfile.txt in the current directory assuming that it is not public_html.
+ln [-f] [-n] [-s] myfile.txt newname
+
+10. To search for a certain pattern in the files existing in the current directory.
+grep "<Pattern>" *
+
+Shell scripts:
+1. Write a shell script to scan two variables and to display their sum, mul, div, sub and modulo division.
+
+#!/bin/bash 
+
+echo Enter the first variable 
+echo Enter the second variable 
+
+read n1 
+read n2 
+
+echo `expr $n1 + $n2` 
+echo `expr $n1 \* $n2` 
+echo `expr $n1 / $n2` 
+echo `expr $n1 % $n2` 
+echo `expr $n1 - $n2` 
+
+
+2. Write a shell script to perform all Arithmetic Operations using Command line arguments. 
+           
+             #!/bin/bash 
+
+         echo The addition is `expr $1 + $2` 
+         echo The multiplication is `expr $1 \* $2` 
+          echo The division is `expr $1 / $2` 
+          echo The modulo is `expr $1 % $2` 
+          echo The subtraction is `expr $1 - $2` 
+
+3. Write a shell script to scan two variables and to display their sum, mul, div, sub and modulo division as per the user choice. (no need to continue, only once is OK)
+
+         #!/bin/bash    
+         echo Enter the first variable 
+          read n1 
+          echo Enter the second variable 
+          read n2 
+         echo Enter the arithmetic operation you wish to perform 
+          read n 
+          case $n in 
+          +)echo `expr $n1 + $n2 `;; 
+         *)echo `expr $n1 \* $n2 `;; 
+          /)echo `expr $n1 / $n2 `;; 
+         %)echo `expr $n1 % $n2 `;; 
+         -)echo `expr $n1 - $n2 `;; 
+          esac
+
+
+
+
+4. Write a shell script to find greatest of two. Script must consider the case where two numbers are equal.
+
+
+
+               #!/bin/bash 
+echo Enter two numbers 
+read n 
+read n1 
+if [ $n -gt $n1 ] 
+then 
+
+echo $n is greater than $n1 
+
+elif [ $n -lt $n1 ] 
+then 
+echo $n is lessthan $n1 
+
+else 
+echo Both are equal  
+fi 
+
+
+5. Write a shell script to accept numbers below 50 and to display the square of each. This should continue as long as the user wishes.
+
+
+      
+while [ 1 ] 
+do 
+echo Enter a number 
+read n 
+if [ $n -lt 50 ] 
+then 
+echo `expr $n \* $n ` 
+else 
+
+echo Enter another number less than 50 
+
+fi 
+done
+
+
+6. Write a shell script, which scans the name of the command and executes it.
+          
+echo Enter the command to be exectued 
+read comm 
+$comm
+
+7. Write a shell script which displays January if we enter Jan, Janu, Janua or January.(use of case)
+
+c=1 
+while [ $c = 1 ] 
+do 
+echo Enter a string like January 
+read str 
+str2='Jan' 
+str3='Janu' 
+str4='Janua' 
+str5='January' 
+str1='quit' 
+if [ $str = $str1 ] 
+then 
+c=0 
+
+elif [ $str = $str2 ] 
+then  
+echo January 
+
+elif [ $str = $str3 ] 
+then  
+echo January 
+
+elif [ $str = $str4 ] 
+then  
+echo January 
+
+elif [ $str = $str5 ] 
+then  
+echo January 
+
+else 
+echo Enter another string 
+fi 
+done 
+
+
+
+8. Write a shell script to generate Fibonacci series.
+
+n1=0 
+n2=1 
+cnt=2 
+echo Enter the number of numbers till you want the fibonacci series 
+read n3 
+echo $n1 
+echo $n2 
+while [ $cnt -le $n3 ] 
+do 
+echo `expr $n1 + $n2` 
+n4=`expr $n1 + $n2` 
+n1=$n2 
+n2=$n4 
+
+cnt=`expr $cnt + 1` 
+done	 
+
+
+9. Write a shell script that asks the capital of Gujarat and repeats the question until the user gives correct answer.
+
+
+c=1 
+while [ $c = 1 ] 
+do 
+echo Enter the capital of Gujarat 
+read str 
+str1='Gandhinagar' 
+if [ $str = $str1 ] 
+then 
+c=0 
+else 
+echo Enter the correct capital of Gujarat 
+fi 
+done
+
+
+10. Write a shell script program to search whether element is present in the list or not and also display its position in the list. 
+
+echo Enter the number to be checked
+read n1
+array_num=( '1' '11' '25' '67' '50')
+for (( i=0; i <= 4; i++ ))
+do
+if [ $n1 = ${array_num[i]} ]
+then
+echo the num is present at position $i
+exit
+fi
+done
+if [ $i -eq 5 ]
+then echo number not found
+fi
