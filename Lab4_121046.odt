@@ -1,0 +1,128 @@
+OS Lab Assignment 4    121046  
+
+
+1. Write a shell script to accept numbers below 50 and to display the square of each.
+  This should continue as long as the user wishes
+
+while [ 1 ]
+do
+echo Enter a number
+read n
+if [ $n -lt 50 ]
+then
+echo `expr $n \* $n `
+else
+
+echo Enter another number less than 50
+
+fi
+done
+
+
+2. Write a shell script to check whether the scanned string is found in a file or not.
+  Display appropriate message.
+
+echo Enter a string to be matched in some file
+read str
+grep -q $str hello.txt
+if [ $? -eq 0 ]
+then
+echo The string is there in the file
+else
+echo String not found
+fi
+
+3.	Write a shell script to generate Fibonacci series.
+
+n1=0
+n2=1
+cnt=2
+echo Enter the number of numbers till you want the fibonacci series
+read n3
+echo $n1
+echo $n2
+while [ $cnt -le $n3 ]
+do
+echo `expr $n1 + $n2`
+n4=`expr $n1 + $n2`
+n1=$n2
+n2=$n4
+ 
+cnt=`expr $cnt + 1`
+done	
+
+4.	Write a shell script to check whether the entered number is prime or not.
+echo Enter any number
+read n
+c=2
+while [ $c -lt $n ]
+
+do
+if [ ` expr $n % $c ` -eq 0 ]
+then
+echo Number is not prime
+exit
+fi
+c=`expr $c + 1`
+done
+echo is prime
+
+
+
+5.	Write a shell script to calculate HRA of employees depending upon their basic.
+
+echo Enter the basic salary
+read sal
+hra=` echo $sal\*20/100|bc`
+echo The hra of the salary is $hra
+
+6.	 Write a shell script that greets the user by saying Good Morning, Good Afternoon,
+  and Good Evening according to the system time.
+
+time=$(date +"%H")
+if [ $time -lt 12 ]
+then
+echo Good morning
+elif [ $time -lt 17 ]
+then
+echo Good afternoon
+else
+echo Good evening
+fi
+
+7. Write a shell script, which takes a filename as command line argument, asks the user
+  if he wants to revoke the read, write permissions for the group and others for that
+ particular file. If the answer is “y” then it should do so or else it should abort the
+    operation.
+
+echo Enter a filename
+read filename
+echo 'Do you want to revoke the read and write permissions for file $filename?'
+echo 'If yes then type y'
+read yes
+if [ $yes = 'y' -o $yes = 'Y' ]
+then
+echo Write the code for the permission
+read c
+chmod $c $filename
+else
+echo No changes needed
+fi
+8.	Write a shell script to count number of newline characters in a file.
+echo Enter the filename
+read filename
+wc -l $filename
+
+9.	Write a shell script to count number of spaces in a file
+
+
+echo "Enter filename with extension"
+read filename
+cat $filename | tr -d '\n' | tr -s " " '\n' | wc -l
+
+10. Write a Shell script, which counts the number of words in a file, without taking into
+consideration the blank space, tab spaces and the newline characters using WC.
+
+echo Enter the filename
+read filename
+wc -w $filename
