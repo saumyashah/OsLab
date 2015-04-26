@@ -1,0 +1,464 @@
+/home/saumya/Desktop
+ubuntu
+ubuntu
+0a1,2
+> /* A simple server in the internet domain using TCP
+>    The port number is passed as an argument */
+2c4
+< #include <sys/types.h>
+---
+> #include <sys/types.h> 
+5d6
+< #include <netdb.h> 
+10c11
+<     exit(0);
+---
+>     exit(1);
+15,27c16,25
+<     int sockfd, portno, n;
+< 
+<     struct sockaddr_in serv_addr;
+<     struct hostent *server;
+< 
+<     char buffer[256];
+<     if (argc < 3) {
+<        fprintf(stderr,"usage %s hostname port\n", argv[0]);
+<        exit(0);
+<     }
+<     portno = atoi(argv[2]);
+<     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+<     if (sockfd < 0) 
+---
+>      int sockfd, newsockfd, portno, clilen;
+>      char buffer[256];
+>      struct sockaddr_in serv_addr, cli_addr;
+>      int n;
+>      if (argc < 2) {
+>          fprintf(stderr,"ERROR, no port provided\n");
+>          exit(1);
+>      }
+>      sockfd = socket(AF_INET, SOCK_STREAM, 0);
+>      if (sockfd < 0) 
+29,53c27,46
+<     server = gethostbyname(argv[1]);
+<     if (server == NULL) {
+<         fprintf(stderr,"ERROR, no such host\n");
+<         exit(0);
+<     }
+<     bzero((char *) &serv_addr, sizeof(serv_addr));
+<     serv_addr.sin_family = AF_INET;
+<     bcopy((char *)server->h_addr, 
+<          (char *)&serv_addr.sin_addr.s_addr,
+<          server->h_length);
+<     serv_addr.sin_port = htons(portno);
+<     if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) 
+<         error("ERROR connecting");
+<     printf("Please enter the message: ");
+<     bzero(buffer,256);
+<     fgets(buffer,255,stdin);
+<     n = write(sockfd,buffer,strlen(buffer));
+<     if (n < 0) 
+<          error("ERROR writing to socket");
+<     bzero(buffer,256);
+<     n = read(sockfd,buffer,255);
+<     if (n < 0) 
+<          error("ERROR reading from socket");
+<     printf("%s\n",buffer);
+<     return 0;
+---
+>      bzero((char *) &serv_addr, sizeof(serv_addr));
+>      portno = atoi(argv[1]);
+>      serv_addr.sin_family = AF_INET;
+>      serv_addr.sin_addr.s_addr = INADDR_ANY;
+>      serv_addr.sin_port = htons(portno);
+>      if (bind(sockfd, (struct sockaddr *) &serv_addr,
+>               sizeof(serv_addr)) < 0) 
+>               error("ERROR on binding");
+>      listen(sockfd,5);
+>      clilen = sizeof(cli_addr);
+>      newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+>      if (newsockfd < 0) 
+>           error("ERROR on accept");
+>      bzero(buffer,256);
+>      n = read(newsockfd,buffer,255);
+>      if (n < 0) error("ERROR reading from socket");
+>      printf("Here is the message: %s\n",buffer);
+>      n = write(newsockfd,"I got your message",18);
+>      if (n < 0) error("ERROR writing to socket");
+>      return 0; 
+1364	./Project/SCREENSHOTS
+2972	./Project
+100	./CN
+562964	./Hadoop
+36	./LA
+208	./C
+575568	./sleepover
+480	./java
+164	./bloodbank_management_121032_121046/Pseudo_codes
+2328	./bloodbank_management_121032_121046/screenshots
+5060	./bloodbank_management_121032_121046
+1152296	.
+Filesystem     1K-blocks      Used Available Use% Mounted on
+/dev/loop0      18106288   4263020  12934776  25% /
+udev             1523788         4   1523784   1% /dev
+tmpfs             613036       916    612120   1% /run
+none                5120         0      5120   0% /run/lock
+none             1532588       152   1532436   1% /run/shm
+/dev/sda3      161866068 153104696   8761372  95% /host
+saumya   tty7         2015-01-24 18:47
+saumya   pts/1        2015-01-24 18:58 (:0.0)
+NAME     LINE         TIME             COMMENT
+saumya   tty7         2015-01-24 18:47
+saumya   pts/1        2015-01-24 18:58 (:0.0)
+saumya   pts/1        2015-01-24 19:05 (:0.0)
+fsck from util-linux 2.20.1
+Usage: cpio [-ioptBcfnvVbrsSAl0aLdmu?] [-C NUMBER]
+            [-F [[USER@]HOST:]FILE-NAME] [-H FORMAT] [-M STRING] [-W FLAG]
+            [-E FILE] [-O [[USER@]HOST:]FILE-NAME]
+            [-I [[USER@]HOST:]FILE-NAME] [-R [USER][:.][GROUP]] [--extract]
+            [--create] [--pass-through] [--list] [--block-size=BLOCK-SIZE]
+            [--io-size=NUMBER] [--force-local] [--nonmatching]
+            [--file=[[USER@]HOST:]FILE-NAME] [--format=FORMAT]
+            [--message=STRING] [--numeric-uid-gid] [--quiet]
+            [--rsh-command=COMMAND] [--verbose] [--dot] [--warning=FLAG]
+            [--swap] [--rename] [--swap-bytes] [--swap-halfwords] [--to-stdout]
+            [--pattern-file=FILE] [--only-verify-crc] [--append] [--link]
+            [--absolute-filenames] [--no-absolute-filenames] [--null]
+            [--reset-access-time] [--dereference] [--owner=[USER][:.][GROUP]]
+            [--make-directories] [--preserve-modification-time]
+            [--no-preserve-owner] [--sparse] [--unconditional] [--help]
+            [--usage] [--version] [destination-directory]
+Usage: cpio [-ioptBcfnvVbrsSAl0aLdmu?] [-C NUMBER]
+            [-F [[USER@]HOST:]FILE-NAME] [-H FORMAT] [-M STRING] [-W FLAG]
+            [-E FILE] [-O [[USER@]HOST:]FILE-NAME]
+            [-I [[USER@]HOST:]FILE-NAME] [-R [USER][:.][GROUP]] [--extract]
+            [--create] [--pass-through] [--list] [--block-size=BLOCK-SIZE]
+            [--io-size=NUMBER] [--force-local] [--nonmatching]
+            [--file=[[USER@]HOST:]FILE-NAME] [--format=FORMAT]
+            [--message=STRING] [--numeric-uid-gid] [--quiet]
+            [--rsh-command=COMMAND] [--verbose] [--dot] [--warning=FLAG]
+            [--swap] [--rename] [--swap-bytes] [--swap-halfwords] [--to-stdout]
+            [--pattern-file=FILE] [--only-verify-crc] [--append] [--link]
+            [--absolute-filenames] [--no-absolute-filenames] [--null]
+            [--reset-access-time] [--dereference] [--owner=[USER][:.][GROUP]]
+            [--make-directories] [--preserve-modification-time]
+            [--no-preserve-owner] [--sparse] [--unconditional] [--help]
+            [--usage] [--version] [destination-directory]
+calc_client:
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  libxnee0
+Suggested packages:
+  xnee-doc
+The following NEW packages will be installed:
+  gnee libxnee0
+0 upgraded, 2 newly installed, 0 to remove and 592 not upgraded.
+Need to get 157 kB of archives.
+After this operation, 540 kB of additional disk space will be used.
+Do you want to continue [Y/n]? 
+Usage:	iw [options] command
+Options:
+	--debug		enable netlink debugging
+	--version	show version (3.2)
+Commands:
+	help
+	event [-t] [-r] [-f]
+	phy
+	list
+	phy <phyname> info
+	dev
+	dev <devname> info
+	dev <devname> del
+	dev <devname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*]
+	phy <phyname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*]
+	dev <devname> ibss join <SSID> <freq in MHz> [fixed-freq] [<fixed bssid>] [beacon-interval <TU>] [basic-rates <rate in Mbps,rate2,...>] [mcast-rate <rate in Mbps>] [key d:0:abcde]
+	dev <devname> ibss leave
+	dev <devname> station dump
+	dev <devname> station set <MAC address> vlan <ifindex>
+	dev <devname> station set <MAC address> plink_action <open|block>
+	dev <devname> station del <MAC address>
+	dev <devname> station get <MAC address>
+	dev <devname> survey dump
+	dev <devname> mesh leave
+	dev <devname> mesh join <mesh ID> [<param>=<value>]*
+	dev <devname> mpath dump
+	dev <devname> mpath set <destination MAC address> next_hop <next hop MAC address>
+	dev <devname> mpath new <destination MAC address> next_hop <next hop MAC address>
+	dev <devname> mpath del <MAC address>
+	dev <devname> mpath get <MAC address>
+	dev <devname> scan [-u] [freq <freq>*] [ies <hex as 00:11:..>] [ssid <ssid>*|passive]
+	dev <devname> scan trigger [freq <freq>*] [ies <hex as 00:11:..>] [ssid <ssid>*|passive]
+	dev <devname> scan dump [-u]
+	reg get
+	reg set <ISO/IEC 3166-1 alpha2>
+	dev <devname> connect [-w] <SSID> [<freq in MHz>] [<bssid>] [key 0:abcde d:1:6162636465]
+	dev <devname> disconnect
+	dev <devname> link
+	dev <devname> offchannel <freq> <duration>
+	dev <devname> cqm rssi <threshold|off> [<hysteresis>]
+	phy <phyname> wowlan show 
+	phy <phyname> wowlan disable 
+	phy <phyname> wowlan enable [any] [disconnect] [magic-packet] [gtk-rekey-failure] [eap-identity-request] [4way-handshake] [rfkill-release] [patterns <pattern>*]
+	dev <devname> roc start <freq> <time>
+	phy <phyname> set antenna <bitmap> | all | <tx bitmap> <rx bitmap>
+	dev <devname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+	phy <phyname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+	phy <phyname> set distance <distance>
+	phy <phyname> set coverage <coverage class>
+	phy <phyname> set netns <pid>
+	phy <phyname> set rts <rts threshold|off>
+	phy <phyname> set frag <fragmentation threshold|off>
+	dev <devname> set channel <channel> [HT20|HT40+|HT40-]
+	phy <phyname> set channel <channel> [HT20|HT40+|HT40-]
+	dev <devname> set freq <freq> [HT20|HT40+|HT40-]
+	phy <phyname> set freq <freq> [HT20|HT40+|HT40-]
+	phy <phyname> set name <new name>
+	dev <devname> set peer <MAC address>
+	dev <devname> set 4addr <on|off>
+	dev <devname> set type <type>
+	dev <devname> set meshid <meshid>
+	dev <devname> set monitor <flag>*
+	dev <devname> set mesh_param <param>=<value> [<param>=<value>]*
+	dev <devname> set power_save <on|off>
+	dev <devname> set bitrates [legacy-<2.4|5> <legacy rate in Mbps>*]
+	dev <devname> get mesh_param [<param>]
+	dev <devname> get power_save <param>
+
+You can omit the 'phy' or 'dev' if the identification is unique,
+e.g. "iw wlan0 info" or "iw phy0 info". (Don't when scripting.)
+
+Do NOT screenscrape this tool, we don't consider its output stable.
+
+Usage: chown [OPTION]... [OWNER][:[GROUP]] FILE...
+  or:  chown [OPTION]... --reference=RFILE FILE...
+Change the owner and/or group of each FILE to OWNER and/or GROUP.
+With --reference, change the owner and group of each FILE to those of RFILE.
+
+  -c, --changes          like verbose but report only when a change is made
+      --dereference      affect the referent of each symbolic link (this is
+                         the default), rather than the symbolic link itself
+  -h, --no-dereference   affect each symbolic link instead of any referenced
+                         file (useful only on systems that can change the
+                         ownership of a symlink)
+      --from=CURRENT_OWNER:CURRENT_GROUP
+                         change the owner and/or group of each file only if
+                         its current owner and/or group match those specified
+                         here.  Either may be omitted, in which case a match
+                         is not required for the omitted attribute
+      --no-preserve-root  do not treat `/' specially (the default)
+      --preserve-root    fail to operate recursively on `/'
+  -f, --silent, --quiet  suppress most error messages
+      --reference=RFILE  use RFILE's owner and group rather than
+                         specifying OWNER:GROUP values
+  -R, --recursive        operate on files and directories recursively
+  -v, --verbose          output a diagnostic for every file processed
+
+The following options modify how a hierarchy is traversed when the -R
+option is also specified.  If more than one is specified, only the final
+one takes effect.
+
+  -H                     if a command line argument is a symbolic link
+                         to a directory, traverse it
+  -L                     traverse every symbolic link to a directory
+                         encountered
+  -P                     do not traverse any symbolic links (default)
+
+      --help     display this help and exit
+      --version  output version information and exit
+
+Owner is unchanged if missing.  Group is unchanged if missing, but changed
+to login group if implied by a `:' following a symbolic OWNER.
+OWNER and GROUP may be numeric as well as symbolic.
+
+Examples:
+  chown root /u        Change the owner of /u to "root".
+  chown root:staff /u  Likewise, but also change its group to "staff".
+  chown -hR root /u    Change the owner of /u and subfiles to "root".
+
+Report chown bugs to bug-coreutils@gnu.org
+GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
+General help using GNU software: <http://www.gnu.org/gethelp/>
+For complete documentation, run: info coreutils 'chown invocation'
+enable .
+enable :
+enable [
+enable alias
+enable bg
+enable bind
+enable break
+enable builtin
+enable caller
+enable cd
+enable command
+enable compgen
+enable complete
+enable compopt
+enable continue
+enable declare
+enable dirs
+enable disown
+enable echo
+enable enable
+enable eval
+enable exec
+enable exit
+enable export
+enable false
+enable fc
+enable fg
+enable getopts
+enable hash
+enable help
+enable history
+enable jobs
+enable kill
+enable let
+enable local
+enable logout
+enable mapfile
+enable popd
+enable printf
+enable pushd
+enable pwd
+enable read
+enable readarray
+enable readonly
+enable return
+enable set
+enable shift
+enable shopt
+enable source
+enable suspend
+enable test
+enable times
+enable trap
+enable true
+enable type
+enable typeset
+enable ulimit
+enable umask
+enable unalias
+enable unset
+enable wait
+saumya   pts/1        :0.0             Sat Jan 24 19:05   still logged in   
+saumya   pts/1        :0.0             Sat Jan 24 18:58 - 19:05  (00:06)    
+reboot   system boot  3.2.0-29-generic Sat Jan 24 18:47 - 19:12  (00:24)    
+reboot   system boot  3.2.0-29-generic Tue Jan 20 23:08 - 23:42  (00:33)    
+reboot   system boot  3.2.0-29-generic Tue Jan 20 18:46 - 23:42  (04:55)    
+saumya   pts/0        :0.0             Fri Jan 16 14:08 - 17:03  (02:55)    
+reboot   system boot  3.2.0-29-generic Fri Jan 16 14:07 - 17:04  (02:57)    
+
+wtmp begins Fri Jan 16 14:07:01 2015
+
+
+eth0      Link encap:Ethernet  HWaddr 00:24:be:b5:c2:a5  
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+          Interrupt:18 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:322 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:322 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:58046 (58.0 KB)  TX bytes:58046 (58.0 KB)
+
+wlan0     Link encap:Ethernet  HWaddr 2c:81:58:f0:58:6d  
+          inet addr:192.168.0.8  Bcast:192.168.0.255  Mask:255.255.255.0
+          inet6 addr: fe80::2e81:58ff:fef0:586d/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:6265 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6065 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:6471439 (6.4 MB)  TX bytes:1099498 (1.0 MB)
+
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root       985  0.0  0.0  19976   972 tty4     Ss+  18:47   0:00 /sbin/getty -8 38400 tty4
+root       992  0.0  0.0  19976   980 tty5     Ss+  18:47   0:00 /sbin/getty -8 38400 tty5
+root      1005  0.0  0.0  19976   968 tty2     Ss+  18:47   0:00 /sbin/getty -8 38400 tty2
+root      1007  0.0  0.0  19976   976 tty3     Ss+  18:47   0:00 /sbin/getty -8 38400 tty3
+root      1013  0.0  0.0  19976   972 tty6     Ss+  18:47   0:00 /sbin/getty -8 38400 tty6
+root      1106  3.9  1.2 169092 39356 tty7     Ss+  18:47   1:02 /usr/bin/X :0 -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch -background none
+root      1223  0.0  0.0  19976   972 tty1     Ss+  18:47   0:00 /sbin/getty -8 38400 tty1
+root      2447  0.0  0.0  60044  1936 pts/1    S    19:05   0:00 sudo -s
+root      2448  0.0  0.1  27236  4300 pts/1    S    19:06   0:00 /bin/bash
+root      2564  0.0  0.0  22352  1276 pts/1    R+   19:14   0:00 ps -u
+         system boot  2015-01-24 18:47
+Linux ubuntu 3.2.0-29-generic #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
+             total       used       free     shared    buffers     cached
+Mem:       3065180    2411536     653644          0     779564    1019260
+-/+ buffers/cache:     612712    2452468
+Swap:       262140          0     262140
+Usage: init [OPTION]...
+Process management daemon.
+
+Options:
+      --confdir=DIR           specify alternative directory to load
+                                configuration files from
+      --default-console=VALUE
+                              default value for console stanza
+      --logdir=DIR            specify alternative directory to store job output
+                                logs in
+      --no-log                disable job logging
+      --no-sessions           disable user and chroot sessions
+      --no-startup-event      do not emit any startup event (for testing)
+      --session               use D-Bus session bus rather than system bus (for
+                                testing)
+      --startup-event=NAME    specify an alternative initial event (for
+                                testing)
+  -q, --quiet                 reduce output to errors only
+  -v, --verbose               increase output to include informational messages
+      --help                  display this help and exit
+      --version               output version information and exit
+
+This daemon is normally executed by the kernel and given process id 1 to denote
+its special status.  When executed by a user process, it will actually run
+/sbin/telinit.
+
+Report bugs to <upstart-devel@lists.ubuntu.com>
+    January 2015      
+Su Mo Tu We Th Fr Sa  
+             1  2  3  
+ 4  5  6  7  8  9 10  
+11 12 13 14 15 16 17  
+18 19 20 21 22 23 _ 2_ 4  
+25 26 27 28 29 30 31  
+                      
+/:  Bus 02.Port 1: Dev 1, Class=root_hub, Driver=ehci_hcd/2p, 480M
+    |__ Port 1: Dev 2, If 0, Class=hub, Driver=hub/8p, 480M
+        |__ Port 1: Dev 3, If 0, Class=HID, Driver=usbhid, 1.5M
+/:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=ehci_hcd/2p, 480M
+    |__ Port 1: Dev 2, If 0, Class=hub, Driver=hub/6p, 480M
+        |__ Port 2: Dev 3, If 0, Class='bInterfaceClass 0x0e not yet handled', Driver=uvcvideo, 480M
+        |__ Port 2: Dev 3, If 1, Class='bInterfaceClass 0x0e not yet handled', Driver=uvcvideo, 480M
+        |__ Port 6: Dev 4, If 0, Class='bInterfaceClass 0xe0 not yet handled', Driver=btusb, 12M
+        |__ Port 6: Dev 4, If 1, Class='bInterfaceClass 0xe0 not yet handled', Driver=btusb, 12M
+        |__ Port 6: Dev 4, If 2, Class=vend., Driver=, 12M
+        |__ Port 6: Dev 4, If 3, Class=app., Driver=, 12M
+/home/saumya/Desktop
+ubuntu
+ubuntu
+0a1,2
+> /* A simple server in the internet domain using TCP
+>    The port number is passed as an argument */
+2c4
+< #include <sys/types.h>
+---
+> #include <sys/types.h> 
+/home/saumya/Desktop
+ubuntu
+ubuntu
+0a1,2
+> /* A simple server in the internet domain using TCP
+>    The port number is passed as an argument */
+2c4
+< #include <sys/types.h>
+---
+> #include <sys/types.h> 
